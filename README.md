@@ -7,8 +7,8 @@
 `#include <stdio.h>`
 
 
-> | <center>선행처리기</center> |  <center>기능</center> |   <center>예시</center> |
-| :- | :: |  -: |
+| <center>선행처리기</center> |  <center>기능</center> |   <center>예시</center> |
+| :---: | :---: |  :---: |
 | <center>#include</center> | <center>파일 포함</center> | <center> #include <stdio.h> </center> |
 | <center>#define</center> | <center>매크로 정의</center> | <center> #define PI 3.141592 </center>|
 | <center>#if #else #elif #endif </center> | <center>조건부 컴파일</center> | <center>  </center>|
@@ -52,10 +52,10 @@ int main(void){
  &(ampersand)는 메모리 주소를 나타낼 때 사용
  &one은 one변수가 할당된 메모리의 주소. 입력받을 값을 넣으라는 뜻
  
-  
+
 ### 3. 서식 지정자
- | <center>자료형</center> |  <center>서식 지정자</center> |   <center>설명</center> |
-| :- | :: |  -: |
+| <center>자료형</center> |  <center>서식 지정자</center> |   <center>설명</center> |
+| :---: | :---: | :---: |
 | <center>int</center> | <center>%d</center> | <center> 정수 </center> |
 | <center>float</center> | <center>%.nf</center> | <center> 실수 (n+1 자리에서 반올림) </center>|
 | <center>double </center> | <center>%.nlf</center> | <center> 실수 (n+1 자리에서 반올림) </center>|
