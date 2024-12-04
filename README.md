@@ -61,4 +61,33 @@ int main(void){
 | <center>double </center> | <center>%.nlf</center> | <center> 실수 (n+1 자리에서 반올림) </center>|
 | <center>char </center> | <center>%c</center><center>%s</center> | <center> 문자 </center>  <center> 문자열 </center>|
 
-  
+### 4. 난수 생성하기
+```c
+#include <stdio.h>
+#include <time.h>  //시간 관련 함수
+#include <stdlib.h>  //난수생성, 문자열 변환 등 함수
+
+int main(void){
+
+    printf("난수 초기화 이전...\n");
+    for(int i = 0; i < 10; i++){
+        printf("%d ", rand() % 10);
+    }
+    //난수 초기화를 하지 않으면 여러 번 실행해도 같은 랜덤 숫자가 나온다. 
+
+    srand(time(NULL));  //난수 초기화
+    printf("\n\n난수 초기화 이후...\n");
+    for(int i = 0; i < 10; i++){
+        printf("%d ", rand() % 10);
+    }    
+
+    return 0;
+}
+```
+
+> `rand() % 뽑고 싶은 숫자의 범위` <br>
+ex. `rand() % 10` -> 0-9 중 숫자 하나 뽑아줘! <br>
+1-10 범위 설정 하고 싶다면 -> `rand() % 10 + 1`
+
+> `srand(time(NULL));` : 난수 초기화
+난수 초기화를 하지 않으면 실행할 때마다 같은 랜덤 결과가 나온다.
