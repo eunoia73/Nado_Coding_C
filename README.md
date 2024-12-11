@@ -1,7 +1,7 @@
 #### -  C언어를 이용한 프로그램 완성 과정
 코딩(소스파일) -> 컴파일 (소스 -> 목적파일) -> 링킹 linking (목적파일 -> 실행파일)
 
-### 1. 선행처리기(preprocessor) 
+### 1. 선행처리기(preprocessor)  
 컴파일에 앞서 프로그램 선두에 선언된 지시자들을 미리 처리하는 역할 수행
 * 전처리기 지시문 - 컴파일에 필요한 정보를 컴파일러에게 알려주는 역할
 `#include <stdio.h>`
@@ -91,3 +91,81 @@ ex. `rand() % 10` -> 0-9 중 숫자 하나 뽑아줘! <br>
 
 > `srand(time(NULL));` : 난수 초기화
 난수 초기화를 하지 않으면 실행할 때마다 같은 랜덤 결과가 나온다.
+
+### 5. 문자열
+
+C언어에서 문자열은 `char 배열`에 저장한다.
+
+#### 1) 문자열 끝에 null문자 포함 (배열크기 = 글자 수 + 1) 
+
+`char str[6] = "coding";` 마지막 null값의 자리를 포함하지 않고 배열을 만들면, 아래와 같이 이상한 문자가 붙어서 출력된다.
+
+<img src="https://velog.velcdn.com/images/eunoia73/post/ba972d66-d360-4484-8b61-f5bf7829b2a2/image.png" width="30%" height="50%">
+
+
+```c
+//문자열
+#include <stdio.h>
+
+int main(void){
+    char str[7] = "coding";  //길이에 마지막 null값 포함해야함
+    printf("%s\n", str);
+    return 0;
+}
+```
+* 문자열을 한 번에 저장하든, 하나씩 저장하든 마지막에는 null이 들어감!
+
+```c
+#include <stdio.h>
+
+int main(void){
+    char c_array[7] = {'c', 'o', 'd', 'i', 'n', 'g', '\n'};
+    printf("%s\n", c_array);
+
+    return 0;
+}
+```
+
+
+#### 2) sizeof() 사용하여 문자열 출력하기
+
+```c
+#include <stdio.h>
+
+int main(void){
+   
+    //sizeof()
+    char str2[] = "coding";
+    printf("%s\n", str);	//coding
+    printf("%d\n", sizeof(str));  //7(null포함한 값)
+    
+    for(int i = 0; i < sizeof(str); i++){
+        printf("%c\n", str[i]);  //값이 한 글자이므로 %c로 받기
+    }    
+
+
+    return 0;
+}
+
+```
+
+* 출력 결과
+
+<img src="https://velog.velcdn.com/images/eunoia73/post/e05d630b-c03a-4951-9853-a60cc1e0cdc6/image.png" width="20%" height="50%">
+
+* 배열 크기를 문자열보다 크게 선언하면, 문자열을 저장한 공간 외에 나머지는 null로 채워짐
+
+```c
+#include <stdio.h>
+
+int main(void){
+
+    char c_array2[10] = {'c', 'o', 'd', 'i', 'n', 'g'};
+    for(int i = 0 ; i < sizeof(c_array2); i++){
+        printf("%c\n", c_array2[i]);
+    }
+
+    return 0;
+}
+```
+<img src="https://velog.velcdn.com/images/eunoia73/post/299fe804-e300-41aa-b3c4-572fdfeb77bd/image.png" width="20%" height="50%">
