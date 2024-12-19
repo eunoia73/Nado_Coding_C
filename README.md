@@ -376,12 +376,12 @@ int main(void){
     return 0;
 }
 ```
-> 1. 구조체 변수 선언시 typedef사용
+i) 구조체 변수 선언시 typedef사용
 ```c
 typedef struct GameInfo 게임정보;  //별명붙이기 
 게임정보 game1;  //변수 선언
 ```
-2. 구조체 선언시 typedef사용
+ii) 구조체 선언시 typedef사용
 ```c
 typedef struct {
     char * name;
