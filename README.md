@@ -221,3 +221,176 @@ int main(void){
 `*(ptr + i)` : `ptr[i]`와 같은 표현. 배열 첫 번째 요소의 주소로부터 i번째에 해당하는 요소의 값을 가져온다. `arr[0] = *(arr + 0)` <br>
 `arr = &arr[0]` : arr자체의 값과 arr배열 첫 요소의 주소는 같다.  <br>
 `*&arr[0]` : *와 &를 같이 사용하면 둘은 상쇄돼서 아무것도 안 붙인 것과 같다. <br>
+
+
+### 7. 구조체
+#### 1) 구조체 선언과 사용
+> `구조체 (structure)` : 서로 다른 자료형을 가진 자료들의 모임을 하나의 자료형으로 정의하여 사용. 사용자 정의 자료형
+``` c
+struct 구조체명{
+	자료형1 변수명1;
+    자료형2 변수명2;
+    ..
+};
+```
+일반적으로 전역 위치에 정의한다. <br>
+`struct 구조체명 변수명;` -> 구조체 변수 선언 방식 <br>
+`변수명.멤버명 = 값;` -> 값 저장 방식 <br>
+
+```c
+#include <stdio.h>
+
+struct  GameInfo{  //구조체 정의
+    char * name;
+    int year;
+    int price;
+    char * company;
+};
+
+int main(void){
+    struct GameInfo gameInfo1;  //구조체 변수 선언
+    //구조체 멤버 저장
+    gameInfo1.name = "나도게임";
+    gameInfo1.year = 2022;
+    gameInfo1.price = 50;
+    gameInfo1.company = "나도회사";
+
+    struct GameInfo gameInfo2 = {"너도게임", 2022, 100, "너도회사"};
+
+    //구조체 멤버 출력
+    printf("-- 게임 출시 정보 -- \n");
+    printf("게임 이름 : %s\n", gameInfo1.name);
+    printf("발매 연도 : %d\n", gameInfo1.year);
+    printf("게임 가격 : %d\n", gameInfo1.price);
+    printf("제작 회사 : %s\n", gameInfo1.company);
+
+    printf("\n-- 또 다른 게임 출시 정보 -- \n");
+    printf("게임 이름 : %s\n", gameInfo2.name);
+    printf("발매 연도 : %d\n", gameInfo2.year);
+    printf("게임 가격 : %d\n", gameInfo2.price);
+    printf("제작 회사 : %s\n", gameInfo2.company);
+
+    return 0;
+}
+
+```
+#### 2) 구조체 배열
+`struct 구조체명 배열명[배열크기];` -> 선언방식
+```c
+struct GameInfo gameArray[2] = {
+        {"나도게임", 2022, 50, "나도회사"},
+        {"너도게임", 2022, 100, "너도회사"}
+    };
+```
+
+#### 3) 구조체 포인터 사용하기
+```c
+	//구조체 포인터 사용하기
+    struct GameInfo * gamePtr;
+    gamePtr = &gameInfo1; //gameInfo1의 주소 넣기
+    
+    //구조체 포인터가 가리키는 구조체 변수의 값 나타내기
+    printf("\n-- 미션맨의 게임 출시 정보 --\n");
+    printf("게임 이름 : %s\n", (*gamePtr).name);
+    printf("발매 연도 : %d\n", (*gamePtr).year);
+    printf("게임 가격 : %d\n", gamePtr->price);  //간접 멤버 참조 연산자(->)사용
+    printf("제작 회사 : %s\n", gamePtr->company);
+
+```
+
+#### 4) 구조체 안의 구조체
+```c
+#include <stdio.h>
+//구조체 선언
+struct GameInfo{
+    char * name;
+    int year;
+    int price;
+    char * company;
+    struct GameInfo * friendGame;  //구조체 포인터
+};
+
+int main(void){
+    struct GameInfo gameInfo1;
+    gameInfo1.name = "나도게임";
+    gameInfo1.year = 2022;
+    gameInfo1.price = 50;
+    gameInfo1.company = "나도회사";
+    struct GameInfo gameInfo2 = {"너도게임", 2022, 100, "너도회사"};
+
+    gameInfo1.friendGame = &gameInfo2;  //gameInfo1의 구조체 포인터에 gameInfo2의 주소 넣기
+
+    printf("-- 다른 회사의 게임 출시 정보 --\n");
+    printf("게임 이름 : %s\n", gameInfo1.friendGame->name); //너도게임
+    printf("발매 연도 : %d\n", gameInfo1.friendGame->year); //2022
+    printf("게임 가격 : %d\n", gameInfo1.friendGame->price); //100
+    printf("제작 회사 : %s\n", gameInfo1.friendGame->company); //너도회사
+
+
+    return 0;
+}
+```
+
+<img src="https://velog.velcdn.com/images/eunoia73/post/524351ba-d0c9-4260-8a3a-3cd046b0183b/image.jpeg" width="80%" height="50%">
+
+#### 5) typedef로 구조체 선언하기
+
+```c
+#include <stdio.h>
+//구조체 선언
+struct GameInfo{
+    char * name;
+    int year;
+    int price;
+    char * company;
+    struct GameInfo * friendGame;
+};
+
+// 구조체 선언과 동시에 별명 붙이기
+typedef struct {
+    char * name;
+    int year;
+    int price;
+    char * company;
+    struct GameInfo * friendGame;
+} GAME_INFO;  
+
+
+int main(void){
+    typedef struct GameInfo 게임정보;  //별명붙이기 
+    게임정보 game1;
+    game1.name = "한글 게임";
+    game1.year = 2022;
+
+    GAME_INFO game2;  //선언
+    game2.name = "한글 게임2";
+    game2.year = 2023;
+
+    //출력
+    printf("-- 게임 출시 정보 --\n");
+    printf("게임 이름 : %s\n", game1.name);
+    printf("발매 연도 : %d\n", game1.year);
+    printf("게임 이름 : %s\n", game2.name);
+    printf("발매 연도 : %d\n", game2.year);
+
+    return 0;
+}
+```
+> 1. 구조체 변수 선언시 typedef사용
+```c
+typedef struct GameInfo 게임정보;  //별명붙이기 
+게임정보 game1;  //변수 선언
+```
+2. 구조체 선언시 typedef사용
+```c
+typedef struct {
+    char * name;
+    int year;
+    int price;
+    char * company;
+    struct GameInfo * friendGame;
+} GAME_INFO;  
+```
+
+
+
