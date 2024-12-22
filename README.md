@@ -4,7 +4,7 @@
 ### 1. 선행처리기(preprocessor)  
 컴파일에 앞서 프로그램 선두에 선언된 지시자들을 미리 처리하는 역할 수행
 * 전처리기 지시문 - 컴파일에 필요한 정보를 컴파일러에게 알려주는 역할 
-`#include <stdio.h>`
+`#include <stdio.h>` 
 
 
 | <center>선행처리기</center> |  <center>기능</center> |   <center>예시</center> |
